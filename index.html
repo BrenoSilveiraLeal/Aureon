@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AUREON — Veículos de alto padrão</title>
+<meta name="description" content="AUREON: carros, clássicos, motos, motorhomes, aviões, helicópteros, iates e jet skis de alto padrão. Escolha online e agende uma visita para ver de perto.">
+<meta name="theme-color" content="#0E0F11">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='15' cy='17' r='10' fill='none' stroke='%23131416' stroke-width='4'/%3E%3Ccircle cx='25' cy='7' r='5' fill='%23FF5A1F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/aureon.css?v=booking-20261124-4">
+<script>
+  // abertura com contador só na primeira visita da sessão
+  try { if (!sessionStorage.getItem('aureon-intro') && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('is-intro'); } catch (e) {}
+</script>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="lg"><i></i><b></b></div>
+  <div class="lnote mono">AUREON <b>/</b> preparando a garagem</div>
+  <div class="lcount" data-lcount>000</div>
+  <div class="lwipe"></div>
+</div>
+
+<header class="chrome" id="chrome">
+  <a href="#/" class="wm" data-title="AUREON" aria-label="AUREON, início"><span class="glyph" aria-hidden="true"></span>AUREON</a>
+  <div class="ticker mono" aria-hidden="true"><span class="sq o"></span><span class="tw" data-tick></span></div>
+  <div class="cta">
+    <a href="#/concierge/contato" class="talk" data-title="Concierge"><span class="dot"></span>Agendar visita <span class="ar">↗</span></a>
+    <button class="rbtn" type="button" data-open-sel aria-label="Abrir sua lista de visita">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-9.3-9.2C1.5 7.6 3.6 4.5 6.9 4.5c2 0 3.5 1.1 5.1 3 1.6-1.9 3.1-3 5.1-3 3.3 0 5.4 3.1 4.2 6.3C19.5 15.4 12 20 12 20z"/></svg>
+      <span class="cnt z" data-sel-count>0</span>
+    </button>
+    <button class="rbtn" type="button" id="mbtn" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span class="g4"><i></i><i></i><i></i><i></i></span></button>
+  </div>
+</header>
+
+<nav id="menu" aria-label="Navegação principal" data-lenis-prevent>
+  <div class="tiles">
+    <a class="tile" href="#/" data-title="Início" data-nav=""><span class="mono">01 / Início</span><b>Garagem</b></a>
+    <a class="tile" href="#/colecao" data-title="Coleção" data-nav="colecao"><span class="mono">02 / Coleção</span><b>Explorar</b></a>
+    <a class="tile" href="#/concierge" data-title="Concierge" data-nav="concierge"><span class="mono">03 / Concierge</span><b>Serviços</b></a>
+    <button class="tile" type="button" data-open-sel><span class="mono">04 / Sua visita</span><b>Agendar</b></button>
+  </div>
+  <div class="cats"><p class="mono">Categorias</p><span data-menu-cats style="display:contents"></span></div>
+  <a class="mrow" href="#/concierge/contato" data-title="Concierge"><span class="mono">Showroom privado · com hora marcada</span><span>↗</span></a>
+</nav>
+
+<canvas id="ribbon" aria-hidden="true"></canvas>
+<div class="rider" id="rider" aria-hidden="true"><img alt=""><span class="mono"></span></div>
+<div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
+<div class="gauge mono" id="gauge" aria-hidden="true"><span id="gnum">000</span><span class="trk"><i id="gbar"></i></span></div>
+
+<main id="view" class="view" tabindex="-1"></main>
+
+<footer class="foot" id="contact">
+  <div class="fpanel">
+    <div class="ask mono"><i></i>Tem um destino em mente?</div>
+    <a href="#/concierge/contato" class="lets" data-title="Concierge" data-lets aria-label="Sua vez. Agende uma visita">Sua vez.</a>
+    <div class="fgrid">
+      <div><h4 class="mono">Showroom</h4><p>Jardins, São Paulo<br>Seg a sáb · 10h às 20h<br>Com hora marcada</p></div>
+      <div><h4 class="mono">Fale com a gente</h4><a href="mailto:concierge@aureon.com.br">concierge@aureon.com.br</a><a href="https://wa.me/5511900000000" target="_blank" rel="noopener">+55 11 90000-0000</a></div>
+      <div><h4 class="mono">Coleção</h4><span data-ftr-cats style="display:contents"></span></div>
+      <div><h4 class="mono">Coleção privada, uma carta por mês</h4>
+        <form class="news" data-demo-form="news" novalidate><input type="email" name="email" placeholder="Seu e-mail" aria-label="E-mail" required autocomplete="email"><button type="submit" aria-label="Inscrever-se">→</button></form>
+      </div>
+    </div>
+    <div class="fbase mono"><span class="wm"><span class="glyph" aria-hidden="true"></span>© 2026 AUREON</span><span>Imagens ilustrativas · Pexels</span><span>Preços sujeitos a alteração</span><a href="#/" data-title="AUREON" data-top>Voltar ao início ↑</a></div>
+  </div>
+</footer>
+
+<!-- lista de visita / agendamento (a venda acontece na loja, não no site) -->
+<div class="scrim" data-scrim></div>
+<aside class="drawer" id="drawer" data-drawer aria-label="Agendar visita" aria-hidden="true">
+  <div class="drawer__hd">
+    <div><span class="mono">Ver de perto</span><b>Agendar visita</b></div>
+    <button class="nb" type="button" data-close-sel aria-label="Fechar agendamento"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+  </div>
+  <div class="drawer__list" data-sel-list data-lenis-prevent></div>
+  <div class="drawer__ft" data-sel-ft>
+    <div class="drawer__sum mono"><span>Para ver na visita</span><b data-sel-total>—</b></div>
+    <form class="form" data-demo-form="sel">
+      <div class="field-row">
+        <div class="field"><label class="mono" for="d-nome">Nome</label><input id="d-nome" name="nome" required autocomplete="name"></div>
+        <div class="field"><label class="mono" for="d-tel">WhatsApp</label><input id="d-tel" name="tel" type="tel" required autocomplete="tel" placeholder="(11) 90000-0000"></div>
+      </div>
+      <div class="field-row visit-fields">
+        <div class="field date-field" data-date-picker>
+          <label class="mono" for="d-data-display">Dia da visita</label>
+          <div class="date-control">
+            <input id="d-data-display" type="text" maxlength="10" placeholder="dd/mm/aaaa" aria-required="true" aria-haspopup="dialog" aria-expanded="false" aria-controls="d-calendar" data-date-display>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="14" height="12" rx="2"/><path d="M6 3v4M14 3v4M3 9h14"/></svg>
+          </div>
+          <input id="d-data" name="data" type="hidden" data-min-today>
+          <div class="date-calendar" id="d-calendar" data-date-calendar role="dialog" aria-label="Escolha o dia da visita" hidden>
+            <div class="date-calendar__top"><button type="button" data-date-prev aria-label="Mês anterior">‹</button><span data-date-month></span><button type="button" data-date-next aria-label="Próximo mês">›</button></div>
+            <div class="date-calendar__weekdays" aria-hidden="true"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span></div>
+            <div class="date-calendar__days" data-date-days></div>
+          </div>
+          <p class="date-error" data-date-error hidden>Escolha um dia para continuar.</p>
+        </div>
+        <fieldset class="field period-field">
+          <legend class="mono">Período</legend>
+          <div class="period-options">
+            <label><input type="radio" name="periodo" value="Manhã (10h–12h)" checked><span><b>Manhã</b><small>10h–12h</small></span></label>
+            <label><input type="radio" name="periodo" value="Tarde (13h–17h)"><span><b>Tarde</b><small>13h–17h</small></span></label>
+            <label><input type="radio" name="periodo" value="Fim de tarde (17h–20h)"><span><b>Fim de tarde</b><small>17h–20h</small></span></label>
+          </div>
+        </fieldset>
+      </div>
+      <button class="pill dk bl" type="submit"><i></i>Pedir horário</button>
+      <p class="note-s">Nada é vendido pelo site. Confirmamos o horário pelo WhatsApp em até 2 horas.</p>
+    </form>
+  </div>
+</aside>
+
+<div class="toast" role="status" aria-live="polite" data-toast></div>
+
+<!-- camada da transição de página -->
+<div class="ink" aria-hidden="true">
+  <svg class="ink__svg"></svg>
+  <div class="ink__title"><span class="ink__seal">A</span><h2 class="ink__name">AUREON</h2><i class="ink__rule"></i></div>
+  <p class="ink__c is-tl"><b>AUREON</b> · Terra, mar e ar</p>
+  <p class="ink__c is-bl">Página <b data-ink-n>01</b></p>
+  <p class="ink__c is-br">São Paulo · Miami · Mônaco</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/art.js"></script>
+<script src="assets/js/transition.js"></script>
+<script src="assets/js/ribbon.js"></script>
+<script src="assets/js/app.js?v=booking-20261124-6"></script>
+</body>
+</html>
