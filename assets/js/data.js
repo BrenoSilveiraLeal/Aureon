@@ -12,6 +12,10 @@
   (4–8 s), sem som, em MP4 H.264 com keyframe a cada quadro para ficar liso:
     ffmpeg -i entrada.mp4 -an -vf scale=1600:-2 -c:v libx264 -g 1 -crf 23 saida.mp4
   Sem video, a cena usa a arte vetorial (entra, gira e a câmera entra na cabine).
+  No celular o vídeo é cortado nas laterais; vfocus diz onde o veículo está
+  no quadro ao longo do clipe, para o enquadramento acompanhá-lo:
+    vfocus: [[segundo, x], ...]   x de 0 (borda esquerda) a 1 (borda direita)
+  Sem vfocus, o corte fica no centro.
 
   Os modelos e marcas abaixo são fictícios (exemplos para o layout).
 
@@ -99,7 +103,7 @@ window.AUREON_DATA = {
     /* ---------- CARROS ---------- */
     {
       id: 'marchetti-veloce-v12', cat: 'carros', brand: 'Marchetti', model: 'Veloce V12', year: 2026,
-      price: 4890000, tag: 'Novo', featured: true, img: 'assets/img/marchetti-veloce-v12.jpg', video: 'assets/video/carros.mp4',
+      price: 4890000, tag: 'Novo', featured: true, img: 'assets/img/marchetti-veloce-v12.jpg', video: 'assets/video/carros.mp4', vfocus: [[0, .55], [1, .6], [5.4, .63], [6.5, .5], [7.6, .45], [8.7, .55], [9.7, .45], [12, .5]],
       desc: 'Gran turismo de motor dianteiro com V12 aspirado de 6.5 litros, câmbio de dupla embreagem e interior em couro costurado à mão.',
       specs: [['Potência', '830 cv'], ['0–100 km/h', '2,9 s'], ['Velocidade máx.', '340 km/h'], ['Motor', 'V12 6.5'], ['Lugares', '2']],
       finishes: [{ name: 'Nero Assoluto', color: '#1a1a1d' }, { name: 'Rosso Imperiale', color: '#7d1a1a' }, { name: 'Verde Inglese', color: '#1f3a2e' }, { name: 'Argento Lunare', color: '#9aa0a6' }]
@@ -122,7 +126,7 @@ window.AUREON_DATA = {
     /* ---------- AVIÕES ---------- */
     {
       id: 'halden-stratos-7x', cat: 'avioes', brand: 'Halden', model: 'Stratos 7X', year: 2025,
-      price: 389000000, tag: 'Sob encomenda', featured: true, img: 'assets/img/halden-stratos-7x.jpg', video: 'assets/video/avioes.mp4',
+      price: 389000000, tag: 'Sob encomenda', featured: true, img: 'assets/img/halden-stratos-7x.jpg', video: 'assets/video/avioes.mp4', vfocus: [[0, .46], [3.2, .53], [5.4, .47], [8.7, .5], [12, .43]],
       desc: 'Jato executivo de cabine ultralarga, capaz de ligar São Paulo a Dubai sem escalas, com suíte master e chuveiro a bordo.',
       specs: [['Alcance', '13.900 km'], ['Cruzeiro', 'Mach 0,90'], ['Passageiros', '16'], ['Teto', '15.545 m'], ['Cabine', '16,3 m']],
       finishes: [{ name: 'Branco Polar', color: '#e6e4df' }, { name: 'Prata Atlântico', color: '#a7adb3' }, { name: 'Azul Real', color: '#1c2a4a' }]
@@ -145,7 +149,7 @@ window.AUREON_DATA = {
     /* ---------- HELICÓPTEROS ---------- */
     {
       id: 'vireo-h175-vip', cat: 'helicopteros', brand: 'Vireo', model: 'H175 VIP', year: 2025,
-      price: 78000000, tag: 'Sob encomenda', featured: true, img: 'assets/img/vireo-h175-vip.jpg', video: 'assets/video/helicopteros.mp4',
+      price: 78000000, tag: 'Sob encomenda', featured: true, img: 'assets/img/vireo-h175-vip.jpg', video: 'assets/video/helicopteros.mp4', vfocus: [[0, .37], [1.1, .44], [2.2, .52], [3.2, .57], [4.3, .57], [5.4, .53], [6.5, .47], [12, .5]],
       desc: 'Bimotor de grande porte com cabine VIP para oito passageiros e isolamento acústico digno de jato executivo.',
       specs: [['Alcance', '1.100 km'], ['Cruzeiro', '285 km/h'], ['Passageiros', '8'], ['Motores', '2 turboeixo'], ['Autonomia', '4 h 30']],
       finishes: [{ name: 'Negro Ônix', color: '#1b1c20' }, { name: 'Branco Gelo', color: '#dedcd6' }, { name: 'Azul Noite', color: '#1a2438' }]
@@ -168,7 +172,7 @@ window.AUREON_DATA = {
     /* ---------- IATES & BARCOS ---------- */
     {
       id: 'valmare-38', cat: 'iates', brand: 'Valmare', model: '38 Superyacht', year: 2026,
-      price: 210000000, tag: 'Sob encomenda', featured: true, img: 'assets/img/valmare-38.jpg', video: 'assets/video/iates.mp4',
+      price: 210000000, tag: 'Sob encomenda', featured: true, img: 'assets/img/valmare-38.jpg', video: 'assets/video/iates.mp4', vfocus: [[0, .5]],
       desc: 'Superiate de 38 metros com cinco suítes, jacuzzi no deck superior e um beach club que se abre ao nível do mar.',
       specs: [['Comprimento', '38 m'], ['Hóspedes', '10 · 5 suítes'], ['Tripulação', '7'], ['Velocidade máx.', '17 nós'], ['Autonomia', '3.800 mn']],
       finishes: [{ name: 'Branco Iate', color: '#eceae4' }, { name: 'Azul Marinho', color: '#1a2a44' }, { name: 'Cinza Tempestade', color: '#5d646b' }]
@@ -191,7 +195,7 @@ window.AUREON_DATA = {
     /* ---------- JET SKIS ---------- */
     {
       id: 'tidal-rx-pro-300', cat: 'jetskis', brand: 'Tidal', model: 'RX Pro 300', year: 2026,
-      price: 189000, tag: 'Novo', featured: true, img: 'assets/img/tidal-rx-pro-300.jpg', video: 'assets/video/jetskis.mp4',
+      price: 189000, tag: 'Novo', featured: true, img: 'assets/img/tidal-rx-pro-300.jpg', video: 'assets/video/jetskis.mp4', vfocus: [[0, .54], [2, .49], [3, .53], [5, .44], [6.9, .48], [7.9, .46], [8.9, .56], [9.9, .5], [11, .59]],
       desc: 'O mais potente da linha: 300 cv supercharged, casco em carbono e tela de 7" com GPS e controle de cruzeiro.',
       specs: [['Potência', '300 cv'], ['Velocidade máx.', '120 km/h'], ['Lugares', '3'], ['Tanque', '70 L'], ['Peso', '380 kg']],
       finishes: [{ name: 'Azul Elétrico', color: '#1b2e5a' }, { name: 'Preto Carbono', color: '#161618' }, { name: 'Branco & Lima', color: '#d9dccc' }]
@@ -214,7 +218,7 @@ window.AUREON_DATA = {
     /* ---------- MOTOS ---------- */
     {
       id: 'valkari-superleggera-v4', cat: 'motos', brand: 'Valkari', model: 'Superleggera V4', year: 2026,
-      price: 890000, tag: 'Série limitada · 500 un.', featured: true, img: 'assets/img/valkari-superleggera-v4.jpg', video: 'assets/video/motos.mp4',
+      price: 890000, tag: 'Série limitada · 500 un.', featured: true, img: 'assets/img/valkari-superleggera-v4.jpg', video: 'assets/video/motos.mp4', vfocus: [[0, .18], [.7, .18], [1.2, .6], [1.8, .78], [2.4, .88], [3.6, .9], [4.2, .84], [4.8, .6], [5.3, .3], [6.72, .4]],
       desc: 'Superesportiva com quadro, rodas e carenagem em fibra de carbono — numerada e assinada à mão na fábrica.',
       specs: [['Potência', '234 cv'], ['Torque', '12,1 kgfm'], ['Velocidade máx.', '330 km/h'], ['Peso seco', '152 kg'], ['Motor', 'V4 1.103 cc']],
       finishes: [{ name: 'Rosso Corsa', color: '#7d1a1a' }, { name: 'Carbono', color: '#1a1a1c' }]

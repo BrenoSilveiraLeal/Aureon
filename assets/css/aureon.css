@@ -622,8 +622,17 @@ fieldset { border: 0; }
   .fin { height: 360vh; }
   .fin .end { flex-direction: column; align-items: flex-start; gap: 12px; bottom: 110px; }
   .fin .cap { flex-direction: column; gap: 6px; }
-  .fgrid { grid-template-columns: 1fr; gap: 28px; margin-top: 72px; }
-  .fpanel { padding-top: 80px; }
+  .fgrid { grid-template-columns: 1fr; gap: 36px; margin-top: 64px; padding-top: 36px; }
+  .fpanel { padding-top: 80px; text-align: center; }
+  .ask { justify-content: center; }
+  .lets { margin-left: auto; margin-right: auto; }
+  .fgrid a { margin-left: auto; margin-right: auto; }
+  .fgrid > div:nth-child(3) { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 18px; }
+  .fgrid > div:nth-child(3) h4 { flex-basis: 100%; }
+  .fgrid > div:nth-child(3) a { margin: 0; }
+  .news { max-width: 420px; margin-left: auto; margin-right: auto; text-align: left; }
+  .fbase { flex-direction: column; align-items: center; gap: 12px; margin-top: 64px; }
+  .fbase a { margin-top: 8px; }
   .gauge { right: 12px; bottom: 16px; }
   .gauge .trk { height: 44px; }
   .minicard { transform: rotate(-3deg); }

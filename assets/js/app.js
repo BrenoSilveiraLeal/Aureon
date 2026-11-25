@@ -319,7 +319,20 @@
     var sec = $('[data-reel]', root); if (!sec) return;
     var stick = $('[data-rstick]', sec), card = $('[data-rcard]', sec), vids = $$('video', card), wk = $('[data-wk]', sec), ww = $('[data-ww]', sec);
     var marks = $$('.tmark', sec), ov = $('[data-rov]', sec), meta = $('[data-rmeta]', sec), segs = $$('.segs b', sec), playb = $('[data-playb]', sec);
-    var N = list.length, cur = -1, queued = false, wl = 0, wr = 0;
+    var N = list.length, cur = -1, queued = false, wl = 0, wr = 0, tall = false, cw = 0, ch = 0;
+    // enquadramento no celular: centraliza o corte onde o veículo está naquele segundo do filme (vfocus)
+    function focusAt(tr, t) {
+      if (t <= tr[0][0]) return tr[0][1];
+      for (var k = 1; k < tr.length; k++) if (t <= tr[k][0]) return lerp(tr[k - 1][1], tr[k][1], seg(t, tr[k - 1][0], tr[k][0]));
+      return tr[tr.length - 1][1];
+    }
+    function frame(v, j) {
+      var tr = list[j].vfocus, vw = v.videoWidth, vh = v.videoHeight;
+      if (!tall || !tr || !tr.length || !vw || !cw) { if (v.style.objectPosition) v.style.objectPosition = ''; return; }
+      var f = Math.min(1, cw / (vw * Math.max(cw / vw, ch / vh))); // fração da largura do quadro que aparece
+      var x = f >= 1 ? 0.5 : clamp((focusAt(tr, v.currentTime) - f / 2) / (1 - f));
+      v.style.objectPosition = (x * 100).toFixed(2) + '% 50%';
+    }
     function measure() { var l = $('[data-w="l"]', wk), r = $('[data-w="r"]', wk); wl = l.offsetWidth; wr = r.offsetWidth; }
     function chapter(i) {
       cur = i; var v = list[i], c = CAT[v.cat];
@@ -336,10 +349,16 @@
       var p = clamp(-r.top / total);
       // fase 1 (≈ 1,1 tela de rolagem): o cartão cresce do centro até cobrir a tela; as palavras se afastam
       var aEnd = Math.min(0.3, VH * 1.1 / total), bStart = Math.min(0.32, VH * 1.25 / total);
-      var a = ease(seg(p, 0, aEnd)), w0 = Math.min(320, VW * 0.42), h0 = w0 * 0.62;
-      var w = lerp(w0, VW, a), h = lerp(h0, VH, a), rad = lerp(26, 0, a), L = (VW - w) / 2, T = (VH - h) / 2;
-      card.style.width = w.toFixed(1) + 'px'; card.style.height = h.toFixed(1) + 'px'; card.style.transform = 'translate(-50%,-50%)'; card.style.borderRadius = rad.toFixed(1) + 'px';
-      var s = lerp(0.78, 1, a), gap = 24, narrow = VW < 760;
+      // celular em pé: o filme (16:9) não ocupa a tela toda, senão sobra só o miolo do quadro; ele para num
+      // formato quase quadrado, um pouco acima do centro, e o texto vai para baixo dele
+      var a = ease(seg(p, 0, aEnd)), w0 = Math.min(320, VW * 0.42), h0 = w0 * 0.62, narrow = VW < 760;
+      tall = narrow && VH > VW * 1.2;
+      var hF = tall ? Math.min(VH, VW * 0.9) : VH, dy = tall ? lerp(0, VH * 0.42 - VH / 2, a) : 0;
+      var w = lerp(w0, VW, a), h = lerp(h0, hF, a), rad = lerp(26, 0, a), L = (VW - w) / 2, T = (VH - h) / 2 + dy;
+      cw = w; ch = h;
+      card.style.width = w.toFixed(1) + 'px'; card.style.height = h.toFixed(1) + 'px'; card.style.transform = 'translate(-50%,calc(-50% + ' + dy.toFixed(1) + 'px))'; card.style.borderRadius = rad.toFixed(1) + 'px';
+      ov.style.top = tall ? (VH * 0.42 + hF / 2 + 22).toFixed(1) + 'px' : ''; ov.style.bottom = tall ? 'auto' : '';
+      var s = lerp(0.78, 1, a), gap = 24;
       [wk, ww].forEach(function (box) {
         var l = $('[data-w="l"]', box), rr = $('[data-w="r"]', box);
         if (narrow) { // celular: uma palavra acima e outra abaixo do vídeo
@@ -384,6 +403,7 @@
         var tg = targets[j]; if (tg == null) return;
         shown[j] = tg;
         if (v.readyState >= 1 && v.duration && !v.seeking && Math.abs(v.currentTime - shown[j]) > 0.03) v.currentTime = shown[j];
+        frame(v, j);
       });
       $('[data-rtc]', sec).textContent = '00:' + pad(Math.floor(shown[cur] || 0));
       loopRaf = requestAnimationFrame(loop);
